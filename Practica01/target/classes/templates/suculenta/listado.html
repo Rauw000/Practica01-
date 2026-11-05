@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}"></head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main class="container mt-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h2>🌵 Catálogo de Suculentas</h2>
+
+                <a th:href="@{/suculenta/nuevo}"
+                   class="btn btn-success">
+                    + Nueva Suculenta
+                </a>
+
+            </div>
+
+            <!-- Mensajes del sistema -->
+            <div th:if="${mensaje}"
+                 class="alert alert-success"
+                 th:text="${mensaje}">
+            </div>
+
+            <div th:if="${error}"
+                 class="alert alert-danger"
+                 th:text="${error}">
+            </div>
+
+            <!-- Mensaje cuando no hay registros -->
+            <div th:if="${#lists.isEmpty(suculentas)}"
+                 class="alert alert-info">
+
+                No hay suculentas registradas.
+
+            </div>
+
+            <!-- Tabla de suculentas -->
+            <div class="table-responsive"
+                 th:unless="${#lists.isEmpty(suculentas)}">
+
+                <table class="table table-striped table-hover align-middle">
+
+                    <thead class="table-success">
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre común</th>
+                            <th>Nombre científico</th>
+                            <th>Familia</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr th:each="suculenta : ${suculentas}">
+
+                            <td th:text="${suculenta.idSuculenta}"></td>
+
+                            <td>
+                                <img th:src="${suculenta.rutaImagen}"
+                                     alt="Imagen de suculenta"
+                                     width="80"
+                                     height="80"
+                                     class="rounded"
+                                     style="object-fit: cover;">
+                            </td>
+
+                            <td th:text="${suculenta.nombreComun}"></td>
+
+                            <td th:text="${suculenta.nombreCientifico}"></td>
+
+                            <td th:text="${suculenta.familia}"></td>
+
+                            <td th:text="|₡${suculenta.precioEstimado}|"></td>
+
+                            <td>
+
+                                <!-- Botón editar -->
+                                <a th:href="@{/suculenta/modificar/{id}(id=${suculenta.idSuculenta})}"
+                                   class="btn btn-warning btn-sm">
+
+                                    Editar
+
+                                </a>
+
+                                <!-- Botón eliminar -->
+                                <form th:action="@{/suculenta/eliminar/{id}(id=${suculenta.idSuculenta})}"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('¿Desea eliminar esta suculenta?');">
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+
+                                        Eliminar
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    </body>
+
+</html>

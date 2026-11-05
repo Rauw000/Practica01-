@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}"></head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main class="container mt-5">
+
+            <div class="p-5 mb-4 bg-light rounded-3 text-center">
+
+                <h1 class="display-5 fw-bold">
+                    🌵 Bienvenido al Catálogo de Suculentas
+                </h1>
+
+                <p class="fs-5 mt-3">
+                    Sistema de administración de suculentas.
+                </p>
+
+                <p>
+                    Registra, consulta, modifica y elimina
+                    información de tus suculentas.
+                </p>
+
+                <a th:href="@{/suculenta/listado}"
+                   class="btn btn-success btn-lg mt-3">
+                    Ver Suculentas
+                </a>
+
+                <a th:href="@{/suculenta/nuevo}"
+                   class="btn btn-outline-success btn-lg mt-3">
+                    Registrar Suculenta
+                </a>
+
+            </div>
+
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    </body>
+
+</html>
